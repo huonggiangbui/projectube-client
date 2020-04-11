@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
 
-function App() {
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './theme';
+
+import Navbar from './components/Navbar';
+
+import firebase from 'firebase';
+import 'firebase/auth';
+
+export default function App() {
+  const [ user, updateUser ] = useState(null);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        updateUser(() => user);
+      } else {
+        updateUser(() => null);
+      }
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Navbar 
+        user={user} 
+      />
+    </ThemeProvider>
   );
 }
 
-export default App;
