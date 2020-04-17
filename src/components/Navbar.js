@@ -127,7 +127,7 @@ function NavbarActions(props) {
           <IconButton>
             <img src={src} className={classes.avatar} alt='Avatar' />
             <Typography variant="h5" className={classes.username}>
-            { props.user.displayName || 'User' }
+              { props.user.displayName || 'User' }
             </Typography>
           </IconButton>
         </div>
